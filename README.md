@@ -41,3 +41,6 @@ A file `config.yml` needs to be created, with the following attributes
     # telegram chat id to send updates to
     # see https://stackoverflow.com/a/50736131/91468
     telegram_chat_id: '1234567890'
+
+    # use cdc web or cdc android
+    scrapper: 'web' or 'android'

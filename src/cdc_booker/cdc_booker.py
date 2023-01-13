@@ -46,8 +46,6 @@ def main(
         with open(configuration, "r") as f:
             config = yaml.load(f, Loader=yaml.FullLoader)
 
-    if scrapper is None:
-        scrapper = "android"
 
     username = config.get("username", username)
     password = config.get("password", password_)
@@ -55,6 +53,7 @@ def main(
     road_revision = config.get("road_revision", road_revision)
     telegram = config.get("telegram", telegram)
     refresh_rate = config.get("refresh_rate", 90)
+    scrapper = config.get("scrapper", "android")
     if telegram:
         notifier = CDCNotifier(
             token=str(config.get("telegram_token", "")),
