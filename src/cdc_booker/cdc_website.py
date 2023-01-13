@@ -12,6 +12,7 @@ from selenium.webdriver.support.ui import Select, WebDriverWait
 
 import captcha
 
+from cdc_captcha_solver import captcha_solver
 
 class Types:
     PRACTICAL = "practical"
@@ -87,6 +88,9 @@ class CDCWebsite:
 
     def open_booking_overview(self):
         self._open_website("NewPortal/Booking/StatementBooking.aspx")
+    
+    def open_simulator_overview(self):
+        self._open_website("NewPortal/Booking/BookingSimulator.aspx")
 
     def open_practical_lessons_booking(self, type=Types.PRACTICAL):
         self._open_website("NewPortal/Booking/BookingPL.aspx")
@@ -170,6 +174,7 @@ class CDCWebsite:
             )
         )
         return True
+
 
     def get_session_available_count(self):
         session_available_span = self.driver.find_element_by_id(
