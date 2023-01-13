@@ -44,3 +44,7 @@ A file `config.yml` needs to be created, with the following attributes
 
     # use cdc web or cdc android
     scrapper: 'web' or 'android'
+
+## Running Script
+If a `config.yml` has been used, use:
+* python src/cdc_booker/cdc_booker.py -c config.yml

@@ -134,5 +134,6 @@ dmypy.json
 # project
 config.yml
 
-# created virtual enviroment
+# created virtual enviroment (
 cdc-booker/
+cdc-booker-env/

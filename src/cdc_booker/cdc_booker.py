@@ -64,15 +64,21 @@ def main(
         )
 
     if scrapper == "web":
-        get_website_practical_slots(
-            username=username,
-            password=password,
-            circuit_revision=circuit_revision,
-            road_revision=road_revision,
-            refresh_rate=refresh_rate,
-            notifier=notifier,
+        get_website_simulator_slots(
+            username= username, 
+            password= password,
+            refresh_rate= refresh_rate,
+            notifier = notifier
         )
-    if scrapper == "android":
+        # get_website_practical_slots(
+        #     username=username,
+        #     password=password,
+        #     circuit_revision=circuit_revision,
+        #     road_revision=road_revision,
+        #     refresh_rate=refresh_rate,
+        #     notifier=notifier,
+        # )
+    elif scrapper == "android":
         get_android_slots(
             username=username,
             password=password,
