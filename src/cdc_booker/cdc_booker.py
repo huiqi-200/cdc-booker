@@ -187,8 +187,8 @@ def get_website_simulator_slots(
         cdc_website.open_home_website()
         cdc_website.login()
         while True:
-            cdc_website.open_booking_overview()
-            cdc_website.open_practical_lessons_booking(type=Types.PRACTICAL)
+            cdc_website.open_simulator_overview()
+            cdc_website.open_simulation_bookings()
 
             try:
                 session_count = cdc_website.get_session_available_count()
