@@ -1,5 +1,6 @@
 # cdc-booker
 Having troubles booking your lessons at the CDC center? This tool let's you know when a slot is available!
++ Modified for Private Instructor accounts
 + Included Simulation bookings
 
 ## Dependencies:
@@ -48,3 +49,8 @@ A file `config.yml` needs to be created, with the following attributes
 ## Running Script
 If a `config.yml` has been used, use:
 * python src/cdc_booker/cdc_booker.py -c config.yml
+
+## Fixes:
+TODO: 
++ Add step to click OK on alerts (Eg E-trial, )
++ Edit recaptcha step on login
