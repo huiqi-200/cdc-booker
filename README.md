@@ -1,6 +1,8 @@
 # cdc-booker
-Having troubles booking your lessons at the CDC center? This tool let's you know when a slot is available!
-Updates from original repository:
+Having troubles booking your lessons at the CDC center? This tool let's you know when a slot is available!  
+
+
+## Updates from original repository:
 + Modified for Private Instructor accounts
 + Included Simulation bookings
 
@@ -15,8 +17,13 @@ Updates from original repository:
   * sudo npm install -g appium-doctor
 * Android Studio (for an android emulator)
    * archlinux: yay -S android-studio-beta
+   
 
-## Create config.yml
+## Steps for installation:
+
+
+## 1. Add downloaded `chromedriver.exe` from extracted ChromeDriver folder to downloaded project directory.  
+## 2.  Create config.yml
 If using the cli arguments is not something you fancy, you can define the configuration on its own file.
 A file `config.yml` needs to be created, with the following attributes
 
@@ -47,9 +54,9 @@ A file `config.yml` needs to be created, with the following attributes
     # use cdc web or cdc android
     scrapper: 'web' or 'android'
 
-## Running Script
-If a `config.yml` has been used, use:
-* python src/cdc_booker/cdc_booker.py -c config.yml
+## 3. Running Script
+If a `config.yml` has been used, use:  
+`python src/cdc_booker/cdc_booker.py -c config.yml`
 
 ## Fixes:
 TODO: 
