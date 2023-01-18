@@ -10,6 +10,8 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select, WebDriverWait
 
+from selenium.common.exceptions import UnexpectedAlertPresentException
+
 import captcha
 
 from cdc_captcha_solver import captcha_solver
@@ -64,6 +66,7 @@ class CDCWebsite:
         assert "ComfortDelGro" in self.driver.title
 
     def login(self):
+
         time.sleep(5)
         login_btn = self.driver.find_element_by_xpath('//*[@id="top-menu"]/ul/li[10]/a')
         login_btn.click()
@@ -79,11 +82,14 @@ class CDCWebsite:
         # wait for user to solve recaptcha
         try:
             while self.driver.find_element_by_name("userId"):
-                time.sleep(5)
+                time.sleep(60)
                 print("Waiting for recaptcha")
         except NoSuchElementException:
             print("Recaptcha solved! Continuing")
             time.sleep(5)
+        except UnexpectedAlertPresentException:
+            time.sleep(5)
+
 
     def logout(self):
         self._open_website("NewPortal/logOut.aspx?PageName=Logout")

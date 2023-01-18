@@ -46,7 +46,6 @@ def main(
         with open(configuration, "r") as f:
             config = yaml.load(f, Loader=yaml.FullLoader)
 
-
     username = config.get("username", username)
     password = config.get("password", password_)
     circuit_revision = config.get("circuit_revision", circuit_revision)
@@ -65,10 +64,10 @@ def main(
 
     if scrapper == "web":
         get_website_simulator_slots(
-            username= username, 
-            password= password,
-            refresh_rate= refresh_rate,
-            notifier = notifier
+            username=username,
+            password=password,
+            refresh_rate=refresh_rate,
+            notifier=notifier,
         )
         # get_website_practical_slots(
         #     username=username,
@@ -155,6 +154,7 @@ def get_website_practical_slots(
     ) as cdc_website:
         cdc_website.open_home_website()
         cdc_website.login()
+
         while True:
             cdc_website.open_booking_overview()
             cdc_website.open_practical_lessons_booking(type=Types.PRACTICAL)
@@ -181,9 +181,7 @@ def get_website_practical_slots(
             sleep_randomish(refresh_rate)
 
 
-def get_website_simulator_slots(
-    username, password, refresh_rate, notifier
-):
+def get_website_simulator_slots(username, password, refresh_rate, notifier):
     with CDCWebsite(
         username=username,
         password=password,
@@ -191,6 +189,7 @@ def get_website_simulator_slots(
     ) as cdc_website:
         cdc_website.open_home_website()
         cdc_website.login()
+
         while True:
             cdc_website.open_simulator_overview()
             cdc_website.open_simulation_bookings()

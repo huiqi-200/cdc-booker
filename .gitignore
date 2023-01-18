@@ -134,6 +134,9 @@ dmypy.json
 # project
 config.yml
 
+# chromedriver
+chromedriver.exe
+
 # created virtual enviroment (
 cdc-booker/
 cdc-booker-env/
