@@ -1,6 +1,8 @@
 # cdc-booker
-Having troubles booking your lessons at the CDC center? This tool let's you know when a slot is available!
-Updates from original repository:
+Having troubles booking your lessons at the CDC center? This tool let's you know when a slot is available!  
+
+
+## Updates from original repository:
 + Modified for Private Instructor accounts
 + Included Simulation bookings
 
@@ -49,7 +51,7 @@ A file `config.yml` needs to be created, with the following attributes
 
 ## Running Script
 If a `config.yml` has been used, use:
-* python src/cdc_booker/cdc_booker.py -c config.yml
+`python src/cdc_booker/cdc_booker.py -c config.yml`
 
 ## Fixes:
 TODO: 
