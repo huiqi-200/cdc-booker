@@ -50,7 +50,7 @@ A file `config.yml` needs to be created, with the following attributes
     scrapper: 'web' or 'android'
 
 ## Running Script
-If a `config.yml` has been used, use:
+If a `config.yml` has been used, use:  
 `python src/cdc_booker/cdc_booker.py -c config.yml`
 
 ## Fixes:
