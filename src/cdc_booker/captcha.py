@@ -6,6 +6,9 @@ import numpy as np
 from PIL import Image, ImageEnhance, ImageFilter
 from subprocess import check_output
 
+from selenium.webdriver.support.ui import Select, WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 
 def resolve_1(path):
     return pytesseract.image_to_string(
@@ -152,6 +155,27 @@ def resolve_5(path):
         custom_config = r"-l eng --oem 3 --psm 10"
         text = pytesseract.image_to_string(box, config=custom_config)
         print("Detected :" + text + ", angle: " + str(angle))
+
+
+def resolve_checkbox(driver):
+    """https://stackoverflow.com/questions/53917157/find-the-recaptcha-element-and-click-on-it-python-selenium/53917309#53917309"""
+    WebDriverWait(driver, 10).until(
+        EC.frame_to_be_available_and_switch_to_it(
+            (
+                By.CSS_SELECTOR,
+                "iframe[name^='a-'][src^='https://www.google.com/recaptcha/api2/anchor?']",
+            ),
+        )
+    )
+
+    WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable(
+            (
+                By.XPATH,
+                "//span[@class='recaptcha-checkbox goog-inline-block recaptcha-checkbox-unchecked rc-anchor-checkbox']/div[@class='recaptcha-checkbox-checkmark']",
+            ),
+        )
+    ).click()
 
 
 if __name__ == "__main__":

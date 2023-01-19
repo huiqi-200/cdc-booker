@@ -48,6 +48,8 @@ class CDCWebsite:
             browser_options.add_argument("--headless")
         browser_options.add_argument("--no-sandbox")
         browser_options.add_argument("--no-proxy-server")
+        browser_options.add_argument("start-maximized")
+        browser_options.add_argument("disable-infobars")
 
         self.driver = webdriver.Chrome(options=browser_options)
         self.driver.set_window_size(1600, 768)
@@ -78,7 +80,7 @@ class CDCWebsite:
         if self.password not in [None, ""]:
             password_input = self.driver.find_element_by_name("password")
             password_input.send_keys(self.password)
-
+        captcha.resolve_checkbox(self.driver)
         # wait for user to solve recaptcha
         try:
             while self.driver.find_element_by_name("userId"):

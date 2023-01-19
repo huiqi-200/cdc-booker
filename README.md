@@ -58,7 +58,5 @@ A file `config.yml` needs to be created, with the following attributes
 If a `config.yml` has been used, use:  
 `python src/cdc_booker/cdc_booker.py -c config.yml`
 
-## Fixes:
-TODO: 
-+ Add step to click OK on alerts (Eg E-trial, )
-+ Edit recaptcha step on login
+## Update of site as of 2023:
++ ReCaptcha step for login uses checkbox instead 
