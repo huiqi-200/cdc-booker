@@ -16,6 +16,8 @@ import captcha
 
 from cdc_captcha_solver import captcha_solver
 
+from timing_randomizer import sleep_randomish, random_time
+
 
 class Types:
     PRACTICAL = "practical"
@@ -70,28 +72,39 @@ class CDCWebsite:
     def login(self):
 
         time.sleep(5)
-        login_btn = self.driver.find_element_by_xpath('//*[@id="top-menu"]/ul/li[10]/a')
-        login_btn.click()
+        # click on "Learner's Login" Button to return Login Popup
+        learner_login = self.driver.find_element_by_xpath(
+            '//*[@id="top-menu"]/ul/li[10]/a'
+        )
+        learner_login.click()
 
         if self.username not in [None, ""]:
             learner_id_input: WebElement = self.driver.find_element_by_name("userId")
             learner_id_input.send_keys(self.username)
+        time.sleep(random_time(5, variance=0.5))
 
         if self.password not in [None, ""]:
             password_input = self.driver.find_element_by_name("password")
             password_input.send_keys(self.password)
+        time.sleep(random_time(5, variance=0.5))
+
         captcha.resolve_checkbox(self.driver)
-        # wait for user to solve recaptcha
+
+        time.sleep(random_time(5, variance=0.5))
+
+        login_button = self.driver.find_element_by_id("BTNSERVICE2")
+        login_button.click()
+
         try:
             while self.driver.find_element_by_name("userId"):
                 time.sleep(60)
                 print("Waiting for recaptcha")
         except NoSuchElementException:
             print("Recaptcha solved! Continuing")
-            time.sleep(5)
-        except UnexpectedAlertPresentException:
-            time.sleep(5)
+            time.sleep(random_time(5, variance=0.5))
 
+        except UnexpectedAlertPresentException:
+            time.sleep(random_time(5, variance=0.5))
 
     def logout(self):
         self._open_website("NewPortal/logOut.aspx?PageName=Logout")

@@ -10,6 +10,7 @@ from selenium.webdriver.support.ui import Select, WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
+
 def resolve_1(path):
     return pytesseract.image_to_string(
         Image.open(path),
@@ -159,6 +160,7 @@ def resolve_5(path):
 
 def resolve_checkbox(driver):
     """https://stackoverflow.com/questions/53917157/find-the-recaptcha-element-and-click-on-it-python-selenium/53917309#53917309"""
+
     WebDriverWait(driver, 10).until(
         EC.frame_to_be_available_and_switch_to_it(
             (
@@ -172,7 +174,7 @@ def resolve_checkbox(driver):
         EC.element_to_be_clickable(
             (
                 By.XPATH,
-                "//span[@class='recaptcha-checkbox goog-inline-block recaptcha-checkbox-unchecked rc-anchor-checkbox']/div[@class='recaptcha-checkbox-checkmark']",
+                "//span[@id='recaptcha-anchor']",
             ),
         )
     ).click()
