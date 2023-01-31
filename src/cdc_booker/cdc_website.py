@@ -19,7 +19,7 @@ from cdc_captcha_solver import captcha_solver
 from timing_randomizer import sleep_randomish, random_time
 
 
-class Types:
+class Booking_Types:
     PRACTICAL = "practical"
     ROAD_REVISION = "rr"
     BTT = "btt"
@@ -115,11 +115,19 @@ class CDCWebsite:
     def open_simulator_overview(self):
         self._open_website("NewPortal/Booking/BookingSimulator.aspx")
 
+    def open_booking_type(self, booking_type=Booking_Types.PRACTICAL):
+        match booking_type:
+            case "practical":
+                self.open_booking_overview()
+            case "simulator":
+                self.open_simulator_overview()
+        
+
     # TODO: make practical lessons booking function more generic for use
     # with simulation booking
-    def open_practical_lessons_booking(self, type=Types.PRACTICAL):
-        self._open_website("NewPortal/Booking/BookingPL.aspx")
-
+    def open_booking(self, booking_type=Booking_Types.PRACTICAL):
+        
+        self.open_booking_type(booking_type)
         while (
             self.driver.find_element_by_id(
                 "ctl00_ContentPlaceHolder1_lblSessionNo"
@@ -166,33 +174,8 @@ class CDCWebsite:
         )
         return True
 
-    def open_simulation_bookings(self):
-        self._open_website("NewPortal/Booking/BookingSimulator.aspx")
 
-        while (
-            self.driver.find_element_by_id(
-                "ctl00_ContentPlaceHolder1_lblSessionNo"
-            ).text
-            == ""
-        ):
-            select_course = Select(
-                self.driver.find_element_by_id("ctl00_ContentPlaceHolder1_ddlCourse")
-            )
 
-            # simulation booking is more straightforward than practical lesson booking's dropdown
-            # - there is only one option
-            select_course.select_by_index(1)
-
-            print("entering while loop for captch handler")
-            # we need to handle the captcha
-            captcha_solver(self)
-
-            WebDriverWait(self.driver, 10).until(
-                EC.element_to_be_clickable(
-                    (By.ID, "ctl00_ContentPlaceHolder1_lblSessionNo")
-                )
-            )
-        return True
 
     def get_session_available_count(self):
         session_available_span = self.driver.find_element_by_id(

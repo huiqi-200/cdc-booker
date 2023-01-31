@@ -7,7 +7,7 @@ import datetime
 import click
 import yaml
 
-from cdc_website import CDCWebsite, Types
+from cdc_website import CDCWebsite, Booking_Types
 from cdc_android import CDCAndroid
 from cdc_notifier import CDCNotifier
 
@@ -30,10 +30,13 @@ from timing_randomizer import sleep_randomish, random_time
     is_flag=True,
     help="Book circuit revision instead of practical class",
 )
-@click.option("--scrapper", type=click.Choice(["web", "android"], case_sensitive=False))
+@click.option(
+    "--scrapper", type=click.Choice(["web", "android"], case_sensitive=False)
+)
 @click.option("-c", "--configuration", help="Your configuration file")
 @click.option("-u", "--username", help="Your CDC learner ID")
 @click.option("-p", "--password", "password_", help="Your CDC password")
+@click.option("--booking_type", type= click.Choice(["practical", "rr", "btt", "rtt", "pt", "simulator"]) ,help="Booking Type")
 def main(
     username,
     password_,
@@ -42,6 +45,7 @@ def main(
     circuit_revision,
     road_revision,
     telegram,
+    booking_type
 ):
     config = {}
     if configuration is not None:
@@ -55,6 +59,7 @@ def main(
     telegram = config.get("telegram", telegram)
     refresh_rate = config.get("refresh_rate", 90)
     scrapper = config.get("scrapper", "android")
+    booking_type = config.get("booking_type", "simulator")
 
     if telegram:
         notifier = CDCNotifier(
@@ -67,8 +72,9 @@ def main(
 
     if scrapper == "web":
         cdc_website = initialize_web(username=username, password=password)
-        get_website_practical_slots(
+        get_website_slots(
             cdc_website,
+            booking_type,
             refresh_rate=refresh_rate,
             notifier=notifier,
         )
@@ -151,10 +157,10 @@ def initialize_web(username, password):
     return cdc_website
 
 
-def get_website_practical_slots(cdc_website, refresh_rate, notifier):
+def get_website_slots(cdc_website, refresh_rate, notifier, booking_type):
 
     cdc_website.open_booking_overview()
-    cdc_website.open_practical_lessons_booking(type=Types.PRACTICAL)
+    cdc_website.open_booking(booking_type=booking_type)
 
     try:
         session_count = cdc_website.get_session_available_count()
